@@ -4,49 +4,9 @@
       <home-swiper :banners="banners"></home-swiper>
       <recommend-view :recommends="recommends"></recommend-view>
       <feature-view></feature-view>
-      <tab-control :titles="[ '流行','精选', '样式']" class="tab-control"></tab-control>
-      <ul>
-        <li>列表1</li>
-        <li>列表2</li>
-        <li>列表3</li>
-        <li>列表4</li>
-        <li>列表5</li>
-        <li>列表6</li>
-        <li>列表7</li>
-        <li>列表8</li>
-        <li>列表9</li>
-        <li>列表10</li>
-        <li>列表11</li>
-        <li>列表12</li>
-        <li>列表13</li>
-        <li>列表14</li>
-        <li>列表15</li>
-        <li>列表16</li>
-        <li>列表17</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表18</li>
-        <li>列表19</li>
-        <li>列表20</li>
-      </ul>
+      <tab-control :titles="[ '流行','精选', '样式']" class="tab-control" @tabClick="tabClick"></tab-control>
+      <good-list :goods="showGoods"></good-list>
+
     </div>
 </template>
 
@@ -59,6 +19,7 @@ import FeatureView from './childrenComponents/FeatureView'
 import NavBar from '@/components/common/navbar/NavBar'
 
 import TabControl from '@/components/content/tabControl/TabControl'
+import GoodList from '@/components/content/goods/GoodsList'
 
 import {getHomeMultidata,getHomeGoods} from '@/network/home.js'
 // import Swiper from '@/components/common/swiper/Swiper'
@@ -74,6 +35,7 @@ import {getHomeMultidata,getHomeGoods} from '@/network/home.js'
      FeatureView,
      NavBar,
      TabControl,
+     GoodList
 
    },
    data () {
@@ -84,7 +46,8 @@ import {getHomeMultidata,getHomeGoods} from '@/network/home.js'
          'pop': {page: 0,list: []},
          'new': {page: 0,list: []},
          'sell': {page: 0,list: []}
-       }
+       },
+       currentType:'pop'
      }
    },
    created () {
@@ -96,6 +59,23 @@ import {getHomeMultidata,getHomeGoods} from '@/network/home.js'
      this.getHomeGoods('sell')
    },
    methods: {
+    //  事件监听相关方法
+      tabClick(index){
+        switch(index){
+          case 0:
+            this.currentType = 'pop'
+            break
+          case 1:
+            this.currentType = 'new'
+            break
+          case 2:
+            this.currentType = 'sell'
+            break
+        }
+      },
+
+
+    //  网络请求相关方法
      //1.请求多个数据
      getHomeMultidata(){
 
@@ -115,6 +95,11 @@ import {getHomeMultidata,getHomeGoods} from '@/network/home.js'
       //  console.log(res.data.data.list);
      })
      }
+   },
+   computed: {
+     showGoods(){
+       return this.goods[this.currentType].list
+     }
    }
   }
 </script>
@@ -124,16 +109,17 @@ import {getHomeMultidata,getHomeGoods} from '@/network/home.js'
   }
   .home-nav{
     background-color: var(--color-tint);
-    color: white;
+    color: #fff;
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    z-index: 999;
+    z-index: 9;
   }
 
   .tab-control{
     position: sticky;
     top: 44px;
+    z-index: 9;
   }
 </style>
