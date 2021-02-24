@@ -1,5 +1,5 @@
 <template>
-    <scroll class="kl">
+    <!-- <scroll class="kl"> -->
       <ul>
         <li>1个人信息</li>
         <li>2个人信息</li>
@@ -102,18 +102,18 @@
         <li>99个人信息</li>
         <li>100个人信息</li>
       </ul>
-    </scroll>
+    <!-- </scroll> -->
 </template>
 
 <script>
 
-  import Scroll from '@/components/common/scroll/Scroll'
-  export default {
-   name:"Profile",
-   components: {
-     Scroll
-   }
-  }
+  // import Scroll from '@/components/common/scroll/Scroll'
+  // export default {
+  //  name:"Profile",
+  //  components: {
+  //    Scroll
+  //  }
+  // }
 </script>
 <style scoped>
   .kl{

@@ -42,14 +42,20 @@
       })
 
       // 3.监听上拉事件
-      this.scroll.on('pullingUp',() => {
+      if(this.pullUpLoad){
+        this.scroll.on('pullingUp',() => {
         this.$emit('pullingUp')
       })
+      }
     },
     methods: {
       scrollTo(x,y,time=500){
-        this.scroll.scrollTo(x,y,time)
-      }
+        this.scroll && this.scroll.scrollTo(x,y,time)
+      },
+      refresh(){
+        this.scroll && this.scroll.refresh()
+      },
+
     }
   }
 </script>
